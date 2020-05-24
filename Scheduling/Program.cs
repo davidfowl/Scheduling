@@ -20,17 +20,19 @@ namespace Scheduling
                 ((Service)state).Invoke();
             }
 
-            // Cache the delegae
+            // Cache the delegate
             Action<object> workItem = WorkItem;
+            Action workItemAction = service.Invoke;
 
             while (true)
             {
                 for (int i = 0; i < Environment.ProcessorCount; i++)
                 {
-                    // ThreadPool.UnsafeQueueUserWorkItem(workItem, service, preferLocal: false);
+                    ThreadPool.UnsafeQueueUserWorkItem(workItem, service, preferLocal: false);
                     // IOThreadScheduler.ScheduleCallbackNoFlow(workItem, service);
-                    overlappedWorkQueue.Schedule(workItem, service);
+                    // overlappedWorkQueue.Schedule(workItem, service);
                     // threadPoolWorkQueue.Schedule(workItem, service);
+                    // Task.Run(workItemAction);
                 }
             }
         }
