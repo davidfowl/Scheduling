@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
+// https://github.com/dotnet/aspnetcore/blob/master/src/Servers/Kestrel/Transport.Sockets/src/Internal/IOQueue.cs
+
 namespace Scheduling
 {
     internal class ThreadPoolWorkQueue : IThreadPoolWorkItem
