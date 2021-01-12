@@ -12,6 +12,7 @@ namespace Scheduling
         {
             var overlappedWorkQueue = new OverlappedWorkQueue();
             var threadPoolWorkQueue = new ThreadPoolWorkQueue();
+            var batchingWorkQueue = new BatchingParallelWorkQueue();
 
             var service = new Service();
 
@@ -28,10 +29,11 @@ namespace Scheduling
             {
                 for (int i = 0; i < Environment.ProcessorCount; i++)
                 {
-                    ThreadPool.UnsafeQueueUserWorkItem(workItem, service, preferLocal: false);
+                    // ThreadPool.UnsafeQueueUserWorkItem(workItem, service, preferLocal: false);
                     // IOThreadScheduler.ScheduleCallbackNoFlow(workItem, service);
                     // overlappedWorkQueue.Schedule(workItem, service);
                     // threadPoolWorkQueue.Schedule(workItem, service);
+                    batchingWorkQueue.Schedule(workItem, service);
                     // Task.Run(workItemAction);
                 }
             }
